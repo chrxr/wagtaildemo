@@ -1,9 +1,10 @@
 {% extends "demo/base.html" %}
 
 {% block content %}
-    {% include "demo/includes/intro.html" with intro=self.intro only %}
 
-    {% include "demo/includes/carousel.html" with carousel_items=self.carousel_items.all only %}
+    {% include "demo/includes/header.html" %}
+
+    {% include "demo/includes/intro.html" with intro=self.intro only %}
 
     {% include "demo/includes/body.html" with body=self.body only %}
 

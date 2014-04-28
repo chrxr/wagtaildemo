@@ -6,27 +6,26 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <mex§ta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_postfix %} | Wagtail Demo{% endblock %}</title>
 
         <meta name="description" content="{% if self.search_description %}{{ self.search_description }}{% endif %}">
 
         {# External stylesheets #}
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
 
         {# Local static assets such as css, images and javascrpt should be stored at [yourapp]/static/[yourapp]/... #}
         {% compress css %}
             {# Vendor stylesheets stored locally #}
             <link rel="stylesheet" href="{% static "demo/css/vendor/jquery.bxslider.css" %}" />
-
             {# Custom stylesheets #}
-            {# SCSS compilation relies on django compressor #}
-            <link rel="stylesheet" type="text/x-scss" href="{% static "demo/css/main.scss" %}" />
-
+            {# Less compilation relies on django compressor #}
+            <!-- <link rel="stylesheet" type="text/x-scss" href="{% static "demo/css/main.scss" %}" /> -->
+            <link rel="stylesheet" href="{% static "demo/css/normalize.css" %}" />
+            <link rel="stylesheet" href="{% static "demo/css/main.css" %}" />
+            <link rel="stylesheet" href="{% static "demo/font-awesome-4.0.3/css/font-awesome.min.css" %}" />
         {% endcompress %}
-
+            <link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css' />
         {% block extra_css %}{% endblock %} {# Override this block in individual templates in order to add stylesheets on a template by template basis #}
 
         {# Javascript that needs to be called from head e.g. google analytics snippet and bootstrap shivs #}
@@ -41,6 +40,7 @@
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
               })();
         </script>
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -54,51 +54,38 @@
 
         {% wagtailuserbar %}
 
-        {% block menu %}
-            {% get_site_root as site_root %}
-            {% top_menu parent=site_root calling_page=self %}
-        {% endblock %}
-
-        <div class="container theme-showcase">
-            <div class="jumbotron">
-                <h1>Wagtail Demo</h1>
-                <p>A set of demo templates to show you what Wagtail can do.</p>
-                {% block search_box %}
-                    {% include "demo/includes/search_box.html" only %}
-                {% endblock %}
-            </div>
-
-            {% block heading %}
-                <div class="page-header">
-                    <h2>{{ self.title }}</h2>
+        <div class="topBannerContainer">
+            <div class="logoContainer"><a href="/"></a></div>
+            <div class="contactContainer">
+                <h2>CONTACT US NOW</h2>
+                <p><i class="fa fa-phone"></i><a href="tel:000000000">01208 398405</a></p>
+                <p><i class="fa fa-envelope"></i><a href="robin@flowpatrol.com">robin@flowpatrol.com</a></p>
                 </div>
-            {% endblock %}
-
-            {% block content %}
-
-            {% endblock %}
-
-            {% block secondary_menu %}
-                {% secondary_menu calling_page=self %}
-            {% endblock %}
-
-            {% block adverts %}
-                {# Uses a snippet - allows adverts to appear on every page #}
-                {% adverts %}
-            {% endblock %}
-
         </div>
+
+            <section class="mainBody">
+                {% block menu %}
+                    {% get_site_root as site_root %}
+                    {% top_menu parent=site_root calling_page=self %}
+                {% endblock %}
+                <section class="contentContainer">
+                    {% block content %}
+
+                    {% endblock %}
+                </section>
+            </section>
+        </div>
+
+        {% include "demo/footer.html" %}
 
         {# External javascript #}
         <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 
         {% compress js %}
-            <script src="{% static "demo/js/vendor/jquery.bxslider.min.js" %}"></script>
-            <script src="{% static "demo/js/vendor/fluidvids.js" %}"></script>
             {# Custom javascript #}
             {# Local static assets such as css, images and javascrpt should be stored at [yourapp]/static/[yourapp]/... #}
             <script src="{% static "demo/js/main.js" %}"></script>
+            <script src="{% static "demo/js/vendor/jquery.bxslider.min.js" %}"></script>
         {% endcompress %}
 
         {% block extra_js %}{% endblock %} {# Override this block in individual templates in order to add javascript on a template by template basis #}

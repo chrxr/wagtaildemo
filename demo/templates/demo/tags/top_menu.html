@@ -1,7 +1,33 @@
 {% load demo_tags pageurl %}
 {% get_site_root as site_root %}
 
-{# Implementation of bootstrap theme dropdown menu - shows top level links and their children #}
+<div class="strapline">
+    <h2>CORNWALL'S #1 DRAINAGE SOLUTION COMPANY</h2>
+</div>
+<div class="topMenuContainer">
+    <ul class="topMenu">
+        {% for menuitem in menuitems %}
+        <li class="topMenuItem">
+            <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+        </li>       
+        {% endfor %}
+        <!-- <li class="topMenuItem">
+            <a href="">Home</a>
+        </li><li class="topMenuItem">
+            <a href="">Our services</a>
+        </li><li class="topMenuItem">
+            <a href="">Rates</a>
+        </li><li class="topMenuItem">
+            <a href="">Contact us</a>
+        </li><li class="topMenuItem">
+            <a href="">Case studies</a>
+        </li><li class="topMenuItem">
+            <a href="">Local links</a>
+        </li> -->
+    </ul>
+</div>
+
+<!-- {# Implementation of bootstrap theme dropdown menu - shows top level links and their children #}
 <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -28,5 +54,5 @@
                 {% endfor %}
             </ul>
         </div>
-    </div>
+    </div> -->
 </div>

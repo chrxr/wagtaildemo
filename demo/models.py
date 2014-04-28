@@ -166,6 +166,16 @@ register_snippet(Advert)
 
 # Home Page
 
+class HomePageMainList(Orderable, LinkFields):
+    page = ParentalKey('demo.HomePage', related_name='main_list')
+    list_item_text = models.CharField(max_length='255')
+
+    panels = [
+        FieldPanel('list_item_text'),
+        MultiFieldPanel(LinkFields.panels, "Link"),
+    ]
+
+
 class HomePageCarouselItem(Orderable, CarouselItem):
     page = ParentalKey('demo.HomePage', related_name='carousel_items')
 
@@ -187,10 +197,11 @@ HomePage.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('body', classname="full"),
     InlinePanel(HomePage, 'carousel_items', label="Carousel items"),
+    InlinePanel(HomePage, 'main_list', label="Main list items"),
     InlinePanel(HomePage, 'related_links', label="Related links"),
 ]
 
-HomePage.promote_panels = [
+HomePage.promote_panels     = [
     MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
 ]
 
