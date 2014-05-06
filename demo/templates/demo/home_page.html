@@ -11,15 +11,19 @@
 {% block content %}
     <div class='carouselContainer'>
         {% include "demo/includes/carousel.html" with carousel_items=self.carousel_items.all only %}
+        {% if self.headline %}
         <div class='headlineBox'>{{ self.headline }}</div>
+        {% endif %}
+        {% if self.headline %}
         <div class='featuresBox'>{{ self.features|richtext }}</div>
+        {% endif %}
     </div>
     <div class='contentContainer'>
         <div class='bodyTextContainer'>
              {% include "demo/includes/body.html" with body=self.body only %}
         </div>
         <div class='formContainer'>
-            {% include "demo/includes/contactForm.html" %}
+            {% include "demo/includes/contact_form.html" %}
         </div>
     </div>
 {% endblock %}
