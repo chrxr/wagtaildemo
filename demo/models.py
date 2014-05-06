@@ -166,15 +166,6 @@ register_snippet(Advert)
 
 # Home Page
 
-class HomePageMainList(Orderable, LinkFields):
-    page = ParentalKey('demo.HomePage', related_name='main_list')
-    list_item_text = models.CharField(max_length='255')
-
-    panels = [
-        FieldPanel('list_item_text'),
-        MultiFieldPanel(LinkFields.panels, "Link"),
-    ]
-
 
 class HomePageCarouselItem(Orderable, CarouselItem):
     page = ParentalKey('demo.HomePage', related_name='carousel_items')
@@ -186,6 +177,8 @@ class HomePageRelatedLink(Orderable, RelatedLink):
 
 class HomePage(Page):
     body = RichTextField(blank=True)
+    headline = models.CharField(max_length=255, blank=True)
+    features = RichTextField(blank=True)
 
     indexed_fields = ('body', )
     search_name = "Homepage"
@@ -195,9 +188,10 @@ class HomePage(Page):
 
 HomePage.content_panels = [
     FieldPanel('title', classname="full title"),
+    FieldPanel('headline'),
+    FieldPanel('features'),
     FieldPanel('body', classname="full"),
     InlinePanel(HomePage, 'carousel_items', label="Carousel items"),
-    InlinePanel(HomePage, 'main_list', label="Main list items"),
     InlinePanel(HomePage, 'related_links', label="Related links"),
 ]
 
@@ -389,229 +383,6 @@ BlogPage.promote_panels = [
     FieldPanel('tags'),
 ]
 
-
-# Person page
-
-class PersonPageRelatedLink(Orderable, RelatedLink):
-    page = ParentalKey('demo.PersonPage', related_name='related_links')
-
-
-class PersonPage(Page, ContactFields):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    intro = RichTextField(blank=True)
-    biography = RichTextField(blank=True)
-    image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-    feed_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
-    indexed_fields = ('first_name', 'last_name', 'intro', 'biography')
-    search_name = "Person"
-
-PersonPage.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('first_name'),
-    FieldPanel('last_name'),
-    FieldPanel('intro', classname="full"),
-    FieldPanel('biography', classname="full"),
-    ImageChooserPanel('image'),
-    MultiFieldPanel(ContactFields.panels, "Contact"),
-    InlinePanel(PersonPage, 'related_links', label="Related links"),
-]
-
-PersonPage.promote_panels = [
-    MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
-    ImageChooserPanel('feed_image'),
-]
-
-
-# Contact page
-
-class ContactPage(Page, ContactFields):
-    body = RichTextField(blank=True)
-    feed_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
-    indexed_fields = ('body', )
-    search_name = "Contact information"
-
-ContactPage.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('body', classname="full"),
-    MultiFieldPanel(ContactFields.panels, "Contact"),
-]
-
-ContactPage.promote_panels = [
-    MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
-    ImageChooserPanel('feed_image'),
-]
-
-
-# Event index page
-
-class EventIndexPageRelatedLink(Orderable, RelatedLink):
-    page = ParentalKey('demo.EventIndexPage', related_name='related_links')
-
-
-class EventIndexPage(Page):
-    intro = RichTextField(blank=True)
-
-    indexed_fields = ('intro', )
-    search_name = "Event index"
-
-    @property
-    def events(self):
-        # Get list of event pages that are descendants of this page
-        events = EventPage.objects.filter(
-            live=True,
-            path__startswith=self.path
-        )
-
-        # Filter events list to get ones that are either
-        # running now or start in the future
-        events = events.filter(date_from__gte=date.today())
-
-        # Order by date
-        events = events.order_by('date_from')
-
-        return events
-
-EventIndexPage.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('intro', classname="full"),
-    InlinePanel(EventIndexPage, 'related_links', label="Related links"),
-]
-
-EventIndexPage.promote_panels = [
-    MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
-]
-
-
-# Event page
-
-class EventPageCarouselItem(Orderable, CarouselItem):
-    page = ParentalKey('demo.EventPage', related_name='carousel_items')
-
-
-class EventPageRelatedLink(Orderable, RelatedLink):
-    page = ParentalKey('demo.EventPage', related_name='related_links')
-
-
-class EventPageSpeaker(Orderable, LinkFields):
-    page = ParentalKey('demo.EventPage', related_name='speakers')
-    first_name = models.CharField("Name", max_length=255, blank=True)
-    last_name = models.CharField("Surname", max_length=255, blank=True)
-    image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
-    @property
-    def name_display(self):
-        return self.first_name + " " + self.last_name
-
-    panels = [
-        FieldPanel('first_name'),
-        FieldPanel('last_name'),
-        ImageChooserPanel('image'),
-        MultiFieldPanel(LinkFields.panels, "Link"),
-    ]
-
-
-class EventPage(Page):
-    date_from = models.DateField("Start date")
-    date_to = models.DateField(
-        "End date",
-        null=True,
-        blank=True,
-        help_text="Not required if event is on a single day"
-    )
-    time_from = models.TimeField("Start time", null=True, blank=True)
-    time_to = models.TimeField("End time", null=True, blank=True)
-    audience = models.CharField(max_length=255, choices=EVENT_AUDIENCE_CHOICES)
-    location = models.CharField(max_length=255)
-    body = RichTextField(blank=True)
-    cost = models.CharField(max_length=255)
-    signup_link = models.URLField(blank=True)
-    feed_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
-    indexed_fields = ('get_audience_display', 'location', 'body')
-    search_name = "Event"
-
-    @property
-    def event_index(self):
-        # Find event index in ancestors
-        for ancestor in reversed(self.get_ancestors()):
-            if isinstance(ancestor.specific, EventIndexPage):
-                return ancestor
-
-        # No ancestors are event indexes,
-        # just return first event index in database
-        return EventIndexPage.objects.first()
-
-    def serve(self, request):
-        if "format" in request.GET:
-            if request.GET['format'] == 'ical':
-                # Export to ical format
-                response = HttpResponse(
-                    export_event(self, 'ical'),
-                    content_type='text/calendar',
-                )
-                response['Content-Disposition'] = 'attachment; filename=' + self.slug + '.ics'
-                return response
-            else:
-                # Unrecognised format error
-                message = 'Could not export event\n\nUnrecognised format: ' + request.GET['format']
-                return HttpResponse(message, content_type='text/plain')
-        else:
-            # Display event page as usual
-            return super(EventPage, self).serve(request)
-
-EventPage.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('date_from'),
-    FieldPanel('date_to'),
-    FieldPanel('time_from'),
-    FieldPanel('time_to'),
-    FieldPanel('location'),
-    FieldPanel('audience'),
-    FieldPanel('cost'),
-    FieldPanel('signup_link'),
-    InlinePanel(EventPage, 'carousel_items', label="Carousel items"),
-    FieldPanel('body', classname="full"),
-    InlinePanel(EventPage, 'speakers', label="Speakers"),
-    InlinePanel(EventPage, 'related_links', label="Related links"),
-]
-
-EventPage.promote_panels = [
-    MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
-    ImageChooserPanel('feed_image'),
-]
 
 
 # Signal handler to load demo data from fixtures after migrations have completed
