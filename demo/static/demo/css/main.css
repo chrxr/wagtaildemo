@@ -276,7 +276,7 @@ body {
 
 .bx-wrapper {
     margin-left:0 !important;
-    margin-bottom:30px !important;
+    margin-bottom:1 0px !important;
 }
 
 .bx-wrapper img {
@@ -301,6 +301,19 @@ body {
     margin-top:10px;
     font-size: 1.2em;
     letter-spacing:1px;
+}
+
+.bx-wrapper .bx-viewport {
+    border:solid #215d01 5px;
+    left:0;
+}
+
+.bx-wrapper .bx-prev {
+    left: 15px;
+}
+
+.bx-wrapper .bx-next {
+    right:5px;
 }
 
 /*.carouselText {
@@ -333,8 +346,9 @@ body {
 
 .bodyTextContainer {
     float: left;
-    width:30%;
+    width:40%;
     clear:right;
+    padding-left:10px;
 }
 
 .bodyTextContainer ul {
@@ -352,13 +366,13 @@ body {
 }
 
 .bodyTextContainer li::before {
-    margin:0 5px 0 -21px;
+    margin:0 5px 0 -25px;
     font-size:80%;
 }
 
 .leftColumn {
     float:left;
-    width:50%;
+    width:45%;
     margin-left:85px; 
     clear:both;  
 }
@@ -374,14 +388,22 @@ body {
     float:left;
     clear:both;
     width:100%;
-    background-color: grey;
+    padding-bottom:40px;
+    background-color: #215d01;
 }
 
 .footer_highlight {
-    background-color:lightgrey;
     padding-bottom:10px;
     padding-top:10px;
     padding-left:85px;
+    background: rgb(91,197,1);
+    background: -moz-linear-gradient(top, rgba(91,197,1,1) 85%, rgba(74,137,1,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(85%,rgba(91,197,1,1)), color-stop(100%,rgba(74,137,1,1)));
+    background: -webkit-linear-gradient(top, rgba(91,197,1,1) 85%,rgba(74,137,1,1) 100%);
+    background: -o-linear-gradient(top, rgba(91,197,1,1) 85%,rgba(74,137,1,1) 100%);
+    background: -ms-linear-gradient(top, rgba(91,197,1,1) 85%,rgba(74,137,1,1) 100%);
+    background: linear-gradient(to top, rgba(91,197,1,1) 85%,rgba(74,137,1,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5bc501', endColorstr='#4a8901',GradientType=0 );
 }
 
 .footer_list {
@@ -392,6 +414,7 @@ body {
 
 .footer_item {
     display: inline-block;
+    color: #215d01;
     margin:0;
     padding:0;
     padding-right:10px;

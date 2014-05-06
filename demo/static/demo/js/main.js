@@ -7,8 +7,8 @@ $(document).ready(function(){
     captions: true,
     adaptiveHeight: true,
     mode: 'fade',
-    pager: true,
-    controls: false,
+    pager: false,
+    controls: true,
   });
 });
 

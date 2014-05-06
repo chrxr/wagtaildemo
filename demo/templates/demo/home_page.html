@@ -9,27 +9,17 @@
 {% endblock %}
 
 {% block content %}
-   
-    <div class='leftColumn'>
+    <div class='carouselContainer'>
         {% include "demo/includes/carousel.html" with carousel_items=self.carousel_items.all only %}
-        {% include "demo/includes/body.html" with body=self.body only %}
+        <div class='headlineBox'>{{ self.headline }}</div>
+        <div class='featuresBox'>{{ self.features|richtext }}</div>
     </div>
-    <div class='bodyTextContainer'>
-        <ul>
-            {% with list_items=self.main_list.all %}
-                {% for list_item in list_items %}
-                    <li class="fa fa-chevron-circle-right">
-                        {% if list_item.link %}
-                        <a href="{{ list_item.link }}">{{ list_item.list_item_text }}</a>
-                        {% else %}
-                        {{ list_item.list_item_text }}
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            {% endwith %}
-        </ul>
+    <div class='contentContainer'>
+        <div class='bodyTextContainer'>
+             {% include "demo/includes/body.html" with body=self.body only %}
+        </div>
+        <div class='formContainer'>
+            {% include "demo/includes/contactForm.html" %}
+        </div>
     </div>
-
-
-
 {% endblock %}
