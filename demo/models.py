@@ -108,12 +108,14 @@ class CarouselItem(LinkFields):
         related_name='+'
     )
     embed_url = models.URLField("Embed URL", blank=True)
-    caption = models.CharField(max_length=255, blank=True)
+    image_title = models.CharField(max_length=255, blank=True)
+    image_caption = models.CharField(max_length=255, blank=True)
 
     panels = [
         ImageChooserPanel('image'),
         FieldPanel('embed_url'),
-        FieldPanel('caption'),
+        FieldPanel('image_title'),
+        FieldPanel('image_caption'),
         MultiFieldPanel(LinkFields.panels, "Link"),
     ]
 
