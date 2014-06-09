@@ -9,6 +9,8 @@ $(document).ready(function(){
     mode: 'fade',
     pager: false,
     controls: true,
+/*    nextSelector: '#slider-next',
+    prevSelector: '#slider-prev',*/
   });
 });
 
