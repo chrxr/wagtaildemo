@@ -2,11 +2,14 @@
 
 {% block content %}
 
-    {% include "demo/includes/header.html" %}
 
-    {% include "demo/includes/intro.html" with intro=self.intro only %}
-
-    {% include "demo/includes/body.html" with body=self.body only %}
-
+    <div class='lowerContainer'>
+        {% include "demo/includes/header.html" %}
+        {% include "demo/includes/intro.html" with intro=self.intro only %}
+        {% include "demo/includes/body.html" with body=self.body only %}
+        <div class='formContainer'>
+                {% include "demo/includes/contact_form.html" %}
+        </div>
+    </div>
     {% include "demo/includes/related_links.html" with related_links=self.related_links.all only %}
 {% endblock %}

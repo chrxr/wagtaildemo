@@ -9,8 +9,10 @@ $(document).ready(function(){
     mode: 'fade',
     pager: false,
     controls: true,
-/*    nextSelector: '#slider-next',
-    prevSelector: '#slider-prev',*/
+    nextSelector: '#slider-next',
+    prevSelector: '#slider-prev',
+    nextText: '',
+    prevText: '',
   });
 });
 

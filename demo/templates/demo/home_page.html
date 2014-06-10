@@ -9,21 +9,15 @@
 {% endblock %}
 
 {% block content %}
-    <div class='carouselContainer'>
-        {% include "demo/includes/carousel.html" with self=self carousel_items=self.carousel_items.all only %}
-
-        <div class="controlBox"></div>
-    </div>
-    {% if self.headline %}
-        <div class='headlineBox'><h2>{{ self.headline }}</h2></div>
-    {% endif %}
-    {% if self.headline %}
-        <div class='featuresBox'>{{ self.features|richtext }}</div>
-    {% endif %}
-        <div class='lowerContainer'>
-                 {% include "demo/includes/body.html" with body=self.body only %}
-            <div class='formContainer'>
-                {% include "demo/includes/contact_form.html" %}
-            </div>
+    {% with self.carousel_items.all as carousel_items %}
+        {% if carousel_items %}
+            {% include "demo/includes/carousel.html" with self=self carousel_items=carousel_items %}
+        {% endif %}
+    {% endwith %}
+    <div class='lowerContainer'>
+             {% include "demo/includes/body.html" with body=self.body only %}
+        <div class='formContainer'>
+            {% include "demo/includes/contact_form.html" %}
         </div>
+    </div>
 {% endblock %}
