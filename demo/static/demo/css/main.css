@@ -503,7 +503,6 @@ a:visited {
     width:100%;
     height:auto;
     float:left;
-    padding-left:85px;
     padding-top:15px;
     background: rgb(91,197,1);
     background: #67A82F;
@@ -550,10 +549,12 @@ a:visited {
 }
 
 .moreTextContainer {
-    max-width:620px;
+    /*max-width:620px;*/
+    width:45%;
     float:left;
-    background-color: #DEDEDE;
-    padding:10px;
+    background-color: #E8E8E8;
+    padding:1%;
+    margin-left:85px;
     margin-bottom:15px;
 }
 
@@ -576,7 +577,7 @@ a:visited {
     margin-left:20px;
     margin-bottom:20px;
     padding:10px;
-    background-color: #DEDEDE;
+    background-color: #E8E8E8;
 }
 
 .formContainer h2 {
@@ -611,7 +612,7 @@ a:visited {
     float:left;
     clear:both;
     width:100%;
-    padding: 10px;
+    padding-top: 10px;
     background-color: #215d01;
 }
 
@@ -626,7 +627,7 @@ a:visited {
     float:left;
 }
 
-.footer_list .first {
+.footer_item.first {
     padding-left:85px;
 }
 

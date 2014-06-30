@@ -7,6 +7,12 @@
             <div id='slider-next' class='rightArrow'></div>
         </div>
     </div>
+    {% if self.headline %}
+        <div class='headlineBox'><h2>{{ self.headline }}</h2></div>
+    {% endif %}
+    {% if self.headline and self.features %}
+        <div class='featuresBox'>{{ self.features|richtext }}</div>
+    {% endif %}
     <div class="slider1">
 
         {% for carousel_item in carousel_items %}
@@ -30,10 +36,5 @@
             </div>
         {% endfor %}
     </div>
-    {% if self.headline %}
-        <div class='headlineBox'><h2>{{ self.headline }}</h2></div>
-    {% endif %}
-    {% if self.headline %}
-        <div class='featuresBox'>{{ self.features|richtext }}</div>
-    {% endif %}
+
 </div>
