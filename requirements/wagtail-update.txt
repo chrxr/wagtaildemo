@@ -1,0 +1,1 @@
+-e git://github.com/torchbox/wagtail.git@457d4e2cddd51f1c9924a12f8378ea31dab071f5#egg=wagtail
