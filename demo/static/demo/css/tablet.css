@@ -56,8 +56,8 @@
     display:none;
 }
 
-.topMenuContainer {
-    display:none;
+.topMenu {
+    margin-left:10px;
 }
 
 /*.captionBox {
@@ -80,4 +80,12 @@
     margin-left:1%;
     padding:1%;
 
+}
+
+.moreTextContainer p {
+    margin:10px;
+}
+
+.pageTitle {
+    margin-left:10px;
 }
